@@ -35,3 +35,7 @@ Live Link:[Todo List App](http://localhost:8000)
 3. add branch to github
 
 `git push --set-upstream origin name-of-branch`
+
+## Copying code from another branch
+
+`git merge name-of-other-branch`

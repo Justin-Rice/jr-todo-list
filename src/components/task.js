@@ -11,7 +11,7 @@ const Task = ({name, color}) =>{
                     </Grid.Column>
                     <Grid.Column width="6" textAlign='right'>
                         <Button icon='trash' color='red'></Button>
-                         <Button icon='pencil' color='orange'></Button>
+                        <Button icon='pencil' color='orange'></Button>
                      </Grid.Column>
                 </Grid>
            </List.Item>
