@@ -3,7 +3,7 @@
 Justin Rice
 
 
-Live Link:[Todo List App](https://in-info-web4.informatics.iupui.edu/~jr16/todo-list",
+Live Link:[Todo List App](https://in-info-web4.informatics.iupui.edu/~jr16/n322/todo-list",
     title: "jr-todo-list)
 
 # adding changes to github
