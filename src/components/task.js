@@ -1,23 +1,37 @@
 import React from 'react';
-import {List, Grid, Label, Button } from 'semantic-ui-react';
+import {List, Grid, Label, Button, Icon } from 'semantic-ui-react';
 
-const Task = ({name, color, editTask, index}) =>{
+const Task = ({name, color, difficulty, openEditTaskForm, index, deleteTask}) =>{
 
     function editCurrentTask(){
-        editTask(index);
+        openEditTaskForm(index);
+        console.log("pains")
+        console.log(index)
+    
+    }
 
+    function deleteCurrenTask(){
+        deleteTask(index);
     }
     return(
         <React.Fragment>
             <List.Item>
-                <Grid columns='2'>
-                    <Grid.Column width='10'>
+                <Grid columns='3'>
+                    <Grid.Column >
                         <Label size='big' color={color}>{name}</Label>
                     </Grid.Column>
-                    <Grid.Column width="6" textAlign='right'>
+                    <Grid.Column textAlign="center">
+                        <Icon
+                        size='big'
+                        name={difficulty}
+                        //difficulty={difficulty}
+                        />
+                    </Grid.Column>
+                    <Grid.Column  textAlign='right'>
                         <Button
                          icon='trash' 
                          color='red'
+                         onClick={deleteCurrenTask}
                          >
 
                          </Button>

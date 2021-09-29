@@ -1,18 +1,21 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.css';
-import { Header, Container, Button, Grid, Segment,Form, Select, List, Label } from 'semantic-ui-react';
+import { Header, Container, Button, Grid, List} from 'semantic-ui-react';
 import Task from '../components/task';
 import NewTaskForm from '../components/NewTaskForm';
+import EditTaskForm from '../components/EditTaskForm';
 
 
-const  HomePage = ({closeNewTask}) =>{
+const  HomePage = () =>{
   const initialNewTask = {
     name:'',
     color:'',
+    difficulty: '',
   };
 
   const [newTaskOpen, setNewTaskOpen] = React.useState(false);
   const [newTask, setNewTask] = React.useState(initialNewTask);
+
   const [list, setList] = React.useState([]);
 
   function openNewTask(){
@@ -24,10 +27,7 @@ const  HomePage = ({closeNewTask}) =>{
   function showTaskOpen(){
     console.log(newTaskOpen);
   }
-  function showNewTaskOpen(){
-    console.log(newTaskOpen);
 
-  }
   function addNewTask(){
     const listClone = [...list];
     listClone.push(newTask);
@@ -49,18 +49,63 @@ const  HomePage = ({closeNewTask}) =>{
   //   console.log(taskList);
 
   // });
-  function editTask(index){
-    console.log('edit', index)
-    const newList = list.map((task, i)=>{
-      if(i !== index) return task;
-      return {
-        name: `Edit ${task.name}`,
-        color : task.color,
-      }
+  
+  // function editTaskForm(index){
+  //   console.log('edit', index)
+  //   const newList = list.map((task, i)=>{
+  //     if(i !== index) return task;
+  //     return {
+  //       name: `Edit ${task.name}`,
+  //       color : task.color,
+  //     }
 
-    })
-    setList(newList);
+  //   })
+  //   setList(newList);
+  // }
+  
+
+  const [showEdit, setShowEdit] = React.useState(-1);
+  //i have no idea why this must be -1 but it will not work with 0 :/
+
+  function openEditTaskForm(index){
+    setShowEdit(index);
+  
   }
+  function closeEditTaskForm(){
+    setShowEdit(-1);
+  
+  }
+  
+  function editTask(index, changedTask) {
+    console.log("edit ", index);
+    const newList = list.map((task, i) => {
+      if (i !== index) return task;
+      return {
+        name: changedTask.name,
+        color: changedTask.color,
+        difficulty: changedTask.difficulty,
+      };
+    });
+
+    setList(newList);
+    
+  }
+
+  function deleteTask(index){
+    const newList = list.filter((task, i)=> i !== index).map(filteredTask =>{
+
+      return filteredTask;
+    })
+    
+    setList(newList);
+    
+  }
+
+  // function deleteCheck(index){
+  //  console.log('help')
+
+  // }
+  
 
   const taskList = list.map((task,index) => {
     return(
@@ -68,16 +113,16 @@ const  HomePage = ({closeNewTask}) =>{
       key={`${task.name}-${index}`} 
       name={task.name} 
       color={task.color}
-      editTask={editTask}
+      difficulty={task.difficulty}
+      openEditTaskForm={openEditTaskForm}
+      deleteTask={deleteTask}
       index={index}
     />  
     )
   })
 
-  function deletTask(){
-    //Array.filter
-  }
-  
+ //const newArray = taskList.filter(task => task.index === task.index);
+
 
 
   return (
@@ -112,6 +157,15 @@ const  HomePage = ({closeNewTask}) =>{
           />
         ) : null
         
+        }
+        {showEdit > -1 ?(
+        <EditTaskForm
+        index={showEdit}
+        editTask={editTask}
+        list={list}
+        closeEditTaskForm={closeEditTaskForm}
+        />
+        ): null
         }
         
         <List>

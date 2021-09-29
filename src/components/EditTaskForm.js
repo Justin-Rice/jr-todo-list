@@ -1,25 +1,34 @@
 import React from 'react'
+import "semantic-ui-css/semantic.css";
 import { Segment, Header, Form, Select, Button, Input, Divider, Grid } from 'semantic-ui-react';
 
 
-const NewTaskForm = ({closeNewTask, newTask, setNewTask, addNewTask}) =>{
+const EditTaskForm = ({list, index, closeEditTaskForm, editTask}) =>{
+
+//console.log(list[index])
+
+    const [newTask, setNewTask] = React.useState(list[index]);
 
 
-  function changeNewTask(e, {value, name}){
+  function changeNewTask(e, {name, value}){
     
     const newTaskClone ={...newTask};
     newTaskClone[name]= value;
     setNewTask(newTaskClone);
+  }
 
+  function changeTask(){
+      editTask(index, newTask)
+      closeEditTaskForm();
 
   }
     return(
       <React.Fragment>
         <Segment>
-        <Grid columns={1} relaxed='very' stackable>
+        <Grid columns={2} relaxed='very' stackable>
           <Grid.Column>
           <Header as="h2">
-            New Task
+            Edit Task
           </Header>
           <Form>
             <Form.Field
@@ -61,18 +70,21 @@ const NewTaskForm = ({closeNewTask, newTask, setNewTask, addNewTask}) =>{
               name='color'
             />
             </Form>
-              <Divider section></Divider>
-            <Button.Group fluid vertical size='huge'>
+            </Grid.Column>
+              <Grid.Column textAlign="center" >
+            <Button.Group fluid>
             <Button 
                 type='button'
                 color='green'
-                onClick={addNewTask}
+                onClick={changeTask}
+                
               >
-              Add Task
+              Accept Changes
               </Button>
+              <Button.Or/>
               <Button 
                 color='red'
-                onClick={closeNewTask}
+                onClick={closeEditTaskForm}
                 type='button'
             
               >
@@ -81,8 +93,9 @@ const NewTaskForm = ({closeNewTask, newTask, setNewTask, addNewTask}) =>{
             </Button.Group>
             </Grid.Column>
           </Grid>
+          {/* <Divider vertical></Divider> */}
         </Segment>
       </React.Fragment>
     )
 }
-export default NewTaskForm;
+export default EditTaskForm;
